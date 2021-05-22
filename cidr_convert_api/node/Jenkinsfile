@@ -4,26 +4,7 @@ pipeline {
     agent any
     stages {
 	    
-		 stage('Verify') {
-            steps {
-                sh '''
-                  node -v
-                '''
-                sh 'printenv'
-                sh 'ls -l "$WORKSPACE"'
-            }
-        }
-         
-        stage('Run Test') {
-            steps {
-              dir("$WORKSPACE/cidr_convert_api/node") {
-                sh '''
-                    npm run test 
-                    
-                '''
-              }
-            }
-        } 
+		 
         stage('BuildImage') {                 
             steps {
                 script {
