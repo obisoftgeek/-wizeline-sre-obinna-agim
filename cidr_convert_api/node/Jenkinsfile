@@ -3,11 +3,19 @@ def image
 pipeline {
     agent any
     stages {
+	
+	    stage('Verify') {
+            steps {
+                
+                sh 'printenv'
+                sh 'ls -l "$WORKSPACE"'
+            }
+        }
 	     
         stage('BuildImage') {                 
             steps {
                 script {
-                    image = docker.build("wizeline-sre", "$WORKSPACE/cidr_convert_api/node/Dockerfile")
+                    image = docker.build("wizeline-sre", "$WORKSPACE\cidr_convert_api\node\Dockerfile")
                 }                
             }
         }   
