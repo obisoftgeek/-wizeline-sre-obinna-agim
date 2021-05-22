@@ -23,7 +23,7 @@ pipeline {
             steps { 
                 script {
                     withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com/r/obinnadock/wizeline-obinna-agim" ]) {        
-                         bat "docker push obinnadock/wizeline-obinna-agim:latest"
+                         bat "docker push wizeline-obinna-agim:latest"
                     }     
                 }
             }
