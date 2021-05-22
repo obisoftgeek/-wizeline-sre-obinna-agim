@@ -7,7 +7,7 @@ pipeline {
         stage('BuildImage') {                 
             steps {
                 script {
-                    image = docker.build("wizeline-sre", ".")
+                    image = docker.build("wizeline-sre", "cidr_convert_api/node/Dockerfile")
                 }                
             }
         }   
@@ -30,3 +30,4 @@ pipeline {
         }
     }
 }
+		 
