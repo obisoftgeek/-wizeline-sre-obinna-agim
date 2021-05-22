@@ -22,7 +22,7 @@ pipeline {
         stage('Push') {                 
             steps { 
                 script {
-                    withDockerRegistry([credentialsId: "dockerhub", url: "https://hub.docker.com/repository/docker/obinnadock/wizeline-obinna-agim" ]) {        
+                    withDockerRegistry([credentialsId: "dockerhub", url: "obinnadock/wizeline-obinna-agim" ]) {        
                         image.push()
                     }     
                 }
