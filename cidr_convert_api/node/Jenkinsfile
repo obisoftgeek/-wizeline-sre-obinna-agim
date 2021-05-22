@@ -7,7 +7,7 @@ pipeline {
         stage('BuildImage') {                 
             steps {
                 script {
-                    image = docker.build("wizeline-sre", "--pull -f .")
+                    image = docker.build("wizeline-sre", ".")
                 }                
             }
         }   
