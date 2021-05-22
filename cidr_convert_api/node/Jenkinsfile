@@ -14,7 +14,7 @@ pipeline {
         stage('BuildImage') {                 
             steps { 
                 script {
-                    image = docker.build("obinna-agim", "$WORKSPACE/cidr_convert_api/node")
+                    image = docker.build("wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
                 }                
             }
         }   
