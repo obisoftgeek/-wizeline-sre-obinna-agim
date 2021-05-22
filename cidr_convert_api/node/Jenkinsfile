@@ -5,9 +5,7 @@ pipeline {
     stages {
 	
 	    stage('Verify') {
-            steps {
-                
-                sh 'printenv'
+            steps { 
                 sh 'ls -l "$WORKSPACE"'
             }
         }
