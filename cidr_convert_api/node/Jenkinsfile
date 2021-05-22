@@ -3,12 +3,7 @@ def image
 pipeline {
     agent any
     stages {
-	
-	    stage('Verify') {
-            steps { 
-                sh 'ls -l "$WORKSPACE"'
-            }
-        }
+	 
 	     
         stage('BuildImage') {                 
             steps {
