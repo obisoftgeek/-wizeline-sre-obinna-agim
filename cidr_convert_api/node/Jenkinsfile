@@ -1,97 +1,51 @@
-
-node {
-
 def image
 
-	pipeline {
+pipeline {
 
-	 environment {
-		registry = "wizelinedevops/obinna-agim"
-		registryCredential = 'dockerhub'
-		dockerImage = ''
-	  }
-		agent any
-		stages {
-			 
-			 stage('Build') {
-				   steps {
-					 bat '''cd "$WORKSPACE/cidr_convert_api/node" '''
-					 
-					 bat '''npm install '''
-				   }
-				}
-				stage('Test') {
-				  steps {
-					  bat '''npm run test'''
+ environment {
+    registry = "wizelinedevops/obinna-agim"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+    agent any
+    stages {
+	     
+		 
+			stage('Test') {   
+			
+			agent {
+			     docker {
+                    image 'node:9-alpine' 
+                    args '-p 3000:3000' 
 				  }
-				}
-			 
-			stage('BuildImage') {                 
-				steps { 
-					script {
-						image = docker.build("obinnadock/wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
-					}                
-				}
-			}   
-		   
-			stage('Push') {                 
-				steps { 
-					script {
-						withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
-							image.push("$BUILD_NUMBER")
-						}     
-					}
-				}
+			   }
+             }
+			
+		steps {
+                  bat '''npm install '''
+				  bat '''npm run test'''
+			  }
 			}
-		}
-	}
-}	  
-
-node {
-
-def image
-
-	pipeline {
-
-	 environment {
-		registry = "wizelinedevops/obinna-agim"
-		registryCredential = 'dockerhub'
-		dockerImage = ''
-	  }
-		agent any
-		stages {
-			 
-			 stage('Build') {
-				   steps {
-					 bat '''cd "$WORKSPACE/cidr_convert_api/node" '''
-					 
-					 bat '''npm install '''
-				   }
-				}
-				stage('Test') {
-				  steps {
-					  bat '''npm run test'''
-				  }
-				}
-			 
-			stage('BuildImage') {                 
-				steps { 
-					script {
-						image = docker.build("obinnadock/wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
-					}                
-				}
-			}   
-		   
-			stage('Push') {                 
-				steps { 
-					script {
-						withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
-							image.push("$BUILD_NUMBER")
-						}     
-					}
-				}
-			}
-		}
-	}
-
+	     
+        stage('BuildImage') {                 
+            steps { 
+                script {
+                    image = docker.build("obinnadock/wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
+                }                
+            }
+        }   
+       
+        stage('Push') {                 
+            steps { 
+                script {
+                    withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
+                        image.push("$BUILD_NUMBER")
+                    }     
+                }
+            }
+        }
+    }
 }
+		  
+		  
+ 
