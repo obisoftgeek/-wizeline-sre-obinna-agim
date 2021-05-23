@@ -10,12 +10,16 @@ pipeline {
     agent any
     stages {
 	     
-		 stage ('Run test'){
-		   steps {
-               echo "Running test"
-            }
-		 }
-	 
+		 stage('Build') {
+			   steps {
+				 sh 'npm install'
+			   }
+			}
+			stage('Test') {
+			  steps {
+				sh 'npm test'
+			  }
+			}
 	     
         stage('BuildImage') {                 
             steps { 
@@ -29,7 +33,7 @@ pipeline {
             steps { 
                 script {
                     withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
-                        image.push("latest")
+                        image.push("$BUILD_NUMBER"")
                     }     
                 }
             }
