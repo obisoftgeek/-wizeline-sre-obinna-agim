@@ -5,17 +5,7 @@ pipeline {
     agent any
     stages {  
     
-         stage('Run test') {
-           
-            steps {
-                   
-                 dir("$WORKSPACE/cidr_convert_api/node") {
-                    bat '''npm install '''
-                     bat '''npm run test '''
-                   echo "install frontend end"
-                 } 
-			  } 
-        }
+        
         stage('BuildImage') {                 
             steps { 
                 script {
