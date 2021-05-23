@@ -14,7 +14,7 @@ pipeline {
         stage('BuildImage') {                 
             steps { 
                 script {
-                    image = docker.build("obinnadock/wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
+                    image = docker.build("obinnadock/wizeline-obinna-agim:latest", "$WORKSPACE/cidr_convert_api/node")
                 }                
             }
         }   
@@ -23,7 +23,7 @@ pipeline {
             steps { 
                 script {
                     withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
-                        image.push(latest)
+                        image.push()
                     }     
                 }
             }
