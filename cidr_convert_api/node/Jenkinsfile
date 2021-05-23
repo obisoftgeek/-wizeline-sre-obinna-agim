@@ -1,17 +1,12 @@
 def image
 
 pipeline {
-
- environment {
-    registry = "wizelinedevops/obinna-agim"
-    registryCredential = 'dockerhub'
-    dockerImage = ''
-  }
+ 
     agent any
     stages {
 	     
 		 
-			stage('Test') {   
+	    stage('Test') {   
 			
 			agent {
 			     docker {
@@ -19,14 +14,13 @@ pipeline {
                     args '-p 3000:3000' 
 				  }
 			   }
-             }
-			
-		steps {
+			   
+			   steps {
                   bat '''npm install '''
 				  bat '''npm run test'''
-			  }
-			}
-	     
+			  } 
+        }
+			 
         stage('BuildImage') {                 
             steps { 
                 script {
@@ -43,9 +37,9 @@ pipeline {
                     }     
                 }
             }
-        }
-    }
+     }
 }
+
 		  
 		  
  
