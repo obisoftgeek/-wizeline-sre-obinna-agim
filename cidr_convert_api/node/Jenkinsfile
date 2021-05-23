@@ -12,12 +12,12 @@ pipeline {
 	     
 		 stage('Build') {
 			   steps {
-				 bat '''npm install'''
+				 bat ''' npm install --cwd "$WORKSPACE/cidr_convert_api/node" --prefix "WORKSPACE/cidr_convert_api/node" '''
 			   }
 			}
 			stage('Test') {
 			  steps {
-				  bat '''npm run test'''
+				  bat '''npm run test  --cwd "$WORKSPACE/cidr_convert_api/node" '''
 			  }
 			}
 	     
