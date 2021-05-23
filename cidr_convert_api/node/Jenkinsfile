@@ -12,7 +12,9 @@ pipeline {
 	     
 		 stage('Build') {
 			   steps {
-				 bat '''npm install'''
+				 bat '''cd "$WORKSPACE/cidr_convert_api/node" '''
+				 
+				 bat '''npm install '''
 			   }
 			}
 			stage('Test') {
