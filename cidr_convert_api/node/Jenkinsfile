@@ -9,6 +9,12 @@ pipeline {
   }
     agent any
     stages {
+	     
+		 stage ('Run test'){
+		   steps {
+               echo "Running test"
+            }
+		 }
 	 
 	     
         stage('BuildImage') {                 
