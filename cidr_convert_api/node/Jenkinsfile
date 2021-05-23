@@ -5,19 +5,17 @@ pipeline {
     agent any
     stages {  
     
-           stage('Run test') {
-           agent {
-			     docker {
-                    image 'node:9-alpine' 
-                    args '-p 3000:3000' 
-				  }
-			   }
+         stage('Run test') {
+           
             steps {
-                  bat '''npm install '''
-				  bat '''npm run test '''
+                   
+                 dir("$WORKSPACE/cidr_convert_api/node") {
+                    bat '''npm install '''
+                     bat '''npm run test '''
+                   echo "install frontend end"
+                 } 
 			  } 
         }
-			 
         stage('BuildImage') {                 
             steps { 
                 script {
