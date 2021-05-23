@@ -3,21 +3,18 @@ def image
 pipeline {
  
     agent any
-    stages {
-	     
-		 
-	    stage('Test') {   
-			
-			agent {
+    stages {  
+    
+           stage('Run test') {
+           agent {
 			     docker {
                     image 'node:9-alpine' 
                     args '-p 3000:3000' 
 				  }
 			   }
-			   
-			   steps {
+            steps {
                   bat '''npm install '''
-				  bat '''npm run test'''
+				  bat '''npm run test '''
 			  } 
         }
 			 
@@ -37,9 +34,8 @@ pipeline {
                     }     
                 }
             }
+        }
      }
 }
 
-		  
-		  
  
