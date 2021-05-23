@@ -9,20 +9,15 @@ pipeline {
   }
     agent any
     stages {
-	      stage('Verify') {
-            steps {
-                 
-                bat '''ls -l $WORKSPACE '''
-            }
-        }
+	     
 		 stage('Build') {
 			   steps {
-				 bat ''' npm install --cwd $WORKSPACE/cidr_convert_api/node --prefix WORKSPACE/cidr_convert_api/node '''
+				 bat '''npm install'''
 			   }
 			}
 			stage('Test') {
 			  steps {
-				  bat '''npm run test  --cwd "$WORKSPACE/cidr_convert_api/node" '''
+				  bat '''npm run test'''
 			  }
 			}
 	     
