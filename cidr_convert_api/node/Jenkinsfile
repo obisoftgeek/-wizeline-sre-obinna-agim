@@ -3,19 +3,27 @@ def image
 pipeline {
  
     agent any
-    stages {  
+    stages { 
     
-         stage('Run test') {
+	      stage('Run test') {
+
+              agent {
+                  docker 'node:9-alpine'			    
+			   }
+             environment {
+                    npm_config_cache = 'npm-cache'
+             }
            
             steps {
                    
                  dir("$WORKSPACE/cidr_convert_api/node") {
-                    bat '''npm install '''
-                     bat '''npm run test '''
-                   echo "install frontend end"
+                    sh 'npm install '
+                     sh 'npm run test '
+                    echo "Running Test Complete"
                  } 
 			  } 
-        }
+        }	   
+			 
         stage('BuildImage') {                 
             steps { 
                 script {
@@ -32,8 +40,6 @@ pipeline {
                     }     
                 }
             }
-        }
      }
 }
 
- 
