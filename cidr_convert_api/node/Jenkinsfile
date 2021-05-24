@@ -7,19 +7,14 @@ pipeline {
 
 	      stage('Run test') {
 
-              agent {
-                  docker 'node:9-alpine'			    
-			   }
-             environment {
-                    npm_config_cache = 'npm-cache'
-             }
+               
            
             steps {
                    
                  dir("$WORKSPACE/cidr_convert_api/node") {
-                    sh 'npm install '
-                     sh 'npm run test '
-                    echo "Running Test Complete"
+                    bat 'npm install '
+                     bat 'npm run test '
+                    bat "Running Test Complete"
                  } 
 			  } 
         }	  
