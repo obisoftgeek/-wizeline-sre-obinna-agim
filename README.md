@@ -27,7 +27,7 @@ and finally the third endpoint simply validates an IPv4.
 
 e.g.
 
-```
+``
 curl localhost/cidr-to-mask?value=24
 {
   "function": "cidrToMask",

@@ -1,0 +1,41 @@
+def image
+
+pipeline {
+ 
+    agent any
+    stages { 
+
+	      stage('Run test') {
+
+               
+           
+            steps {
+                   
+                 dir("$WORKSPACE/cidr_convert_api/node") {
+                    bat 'npm install '
+                     bat 'npm run test '
+                    bat "Running Test Complete"
+                 } 
+			  } 
+        }	  
+
+        stage('BuildImage') {                 
+            steps { 
+                script {
+                    image = docker.build("obinnadock/wizeline-obinna-agim", "$WORKSPACE/cidr_convert_api/node")
+                }                
+            }
+        }   
+       
+        stage('Push') {                 
+            steps { 
+                script {
+                    withDockerRegistry([credentialsId: "dockerhub", url: "https://registry.hub.docker.com" ]) {        
+                        image.push("$BUILD_NUMBER")
+                    }     
+                }
+            }
+     }
+    }
+}
+

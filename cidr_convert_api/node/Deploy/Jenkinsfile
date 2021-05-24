@@ -1,0 +1,43 @@
+pipeline {
+
+stages { 
+
+       stage('Deploy to Kubernetes environments'){
+         script{
+             steps{
+                 if(env.GIT_BRANCH.contains("master")){
+
+                     kubeconfig(credentialsId: 'KUBECONFIG', serverUrl: 'development-api-obinna-agim.interviews.wize.mx') {
+
+                            sh 'kubectl --kubeconfig=${KUBECONFIG} --namespace=obinna-agim.interviews.wize.mx set image deployment/api api=wizelinedevops/api:${BUILD_NUMBER}'
+
+                            sh 'kubectl apply -f my-kubernetes-directory' 
+                        }
+                    }
+
+                  if(env.GIT_BRANCH.contains("staging")){
+
+                     kubeconfig(credentialsId: 'KUBECONFIG', serverUrl: 'staging-api-obinna-agim.interviews.wize.mx') {
+
+                            sh 'kubectl --kubeconfig=${KUBECONFIG} --namespace=obinna-agim.interviews.wize.mx set image deployment/api api=wizelinedevops/api:${BUILD_NUMBER}'
+
+                            sh 'kubectl apply -f my-kubernetes-directory' 
+                        }
+                  }
+                  if(env.GIT_BRANCH.contains("production")){
+
+                     kubeconfig(credentialsId: 'KUBECONFIG', serverUrl: 'production-api-obinna-agim.interviews.wize.mx') {
+
+                            sh 'kubectl --kubeconfig=${KUBECONFIG} --namespace=obinna-agim.interviews.wize.mx set image deployment/api api=wizelinedevops/api:${BUILD_NUMBER}'
+
+                            sh 'kubectl apply -f my-kubernetes-directory' 
+                        } 
+                 }
+             }
+         }
+     }
+
+  
+    }
+
+}
