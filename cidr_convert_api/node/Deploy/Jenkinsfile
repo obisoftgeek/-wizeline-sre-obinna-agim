@@ -3,8 +3,10 @@ pipeline {
 stages { 
 
        stage('Deploy to Kubernetes environments'){
-         script{
+         
              steps{
+			 
+			 script{
                  if(env.GIT_BRANCH.contains("master")){
 
                      kubeconfig(credentialsId: 'KUBECONFIG', serverUrl: 'development-api-obinna-agim.interviews.wize.mx') {
@@ -33,11 +35,9 @@ stages {
                             sh 'kubectl apply -f my-kubernetes-directory' 
                         } 
                  }
-             }
+				}
+           }
          }
-     }
-
-  
     }
 
 }
