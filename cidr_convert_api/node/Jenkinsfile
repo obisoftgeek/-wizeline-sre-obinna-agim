@@ -4,7 +4,7 @@ pipeline {
  
     agent any
     stages { 
-    
+
 	      stage('Run test') {
 
               agent {
@@ -24,6 +24,7 @@ pipeline {
 			  } 
         }	   
 			 
+
         stage('BuildImage') {                 
             steps { 
                 script {
